@@ -11,7 +11,9 @@
 |
 */
 
-
+Route::any('/test', function () {
+    return view('test.index');
+});
 Route::any('/verify', 'Commen\MessageController@sendMessage');
 Route::any('/checkVerify', 'Commen\MessageController@checkVerify');
 Route::post('oauth/access_token', function() {
@@ -21,6 +23,7 @@ Route::post('oauth/access_token', function() {
 //Create a test user, you don't need this if you already have.
 Route::post('/register','Content\UserController@register');
 Route::post('/login','Content\UserController@login');
+Route::post('/update','Content\UserController@update');
 // /**
 //  * Api
 //  */
