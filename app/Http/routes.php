@@ -20,7 +20,7 @@ Route::post('oauth/access_token', function() {
 
 //Create a test user, you don't need this if you already have.
 Route::post('/register','Content\UserController@register');
-
+Route::post('/login','Content\UserController@login');
 // /**
 //  * Api
 //  */
