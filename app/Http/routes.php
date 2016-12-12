@@ -19,12 +19,7 @@ Route::post('oauth/access_token', function() {
 });
 
 //Create a test user, you don't need this if you already have.
-Route::get('/register',function(){$user = new App\User();
- $user->name="tester";
- $user->email="test@test.com";
- $user->password = \Illuminate\Support\Facades\Hash::make("password");
- $user->save();
-});
+Route::post('/register','Content\UserController@register');
 
 // /**
 //  * Api
