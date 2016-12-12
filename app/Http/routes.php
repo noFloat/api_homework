@@ -11,10 +11,9 @@
 |
 */
 
-Route::get('/', [
-    'as' => 'movie.index', 'uses' => 'Content\IndexController@index'
-]);
+
 Route::any('/verify', 'Commen\MessageController@sendMessage');
+Route::any('/checkVerify', 'Commen\MessageController@checkVerify');
 Route::post('oauth/access_token', function() {
  return Response::json(Authorizer::issueAccessToken());
 });
