@@ -2,9 +2,11 @@
 
 namespace App;
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
+//use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Model;
+use DB;
 
-class User extends Authenticatable
+class User extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -12,7 +14,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','phone'
+        'name', 'email', 'password','phone','created_at','updated_at'
     ];
     public function checkExist($phone){
         $goal = User::where('phone','=',$phone)->get();
