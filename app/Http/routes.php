@@ -28,6 +28,7 @@ Route::get('/search','Content\UserController@search');
 
 
 Route::get('/building/search','Content\BuildingController@search');
+Route::get('/building/energy_now','Content\BuildingController@energy_now');
 // /**
 //  * Api
 //  */

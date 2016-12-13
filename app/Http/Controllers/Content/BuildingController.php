@@ -10,6 +10,7 @@ use Illuminate\Support\Collection;
 use App\Building;
 use App\Equipment;
 use App\Daydata;
+use App\Energydata;
 
 class BuildingController extends Controller
 {
@@ -49,6 +50,22 @@ class BuildingController extends Controller
 	            "status"  => 200,
 	            "info"    =>"success",
 	            'data'    => $buildinginfo
+	    	];
+	    return response()->json($info);
+	}
+
+	public function energy_now(){
+		$energyData = new Energydata();
+		$data = $energyData->join('equipment', 'equipment.id', '=', 'energydatas.eiid')
+						   ->orderBy('etime','DESC')->take(15)->get();
+
+		foreach ($data as $key => $value) {
+			$all_data[$key] = $value['attributes'];
+		}
+		$info = [
+	            "status"  => 200,
+	            "info"    =>"success",
+	            'data'    => $all_data
 	    	];
 	    return response()->json($info);
 	}
