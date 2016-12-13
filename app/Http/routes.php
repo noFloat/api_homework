@@ -24,6 +24,7 @@ Route::post('oauth/access_token', function() {
 Route::post('/register','Content\UserController@register');
 Route::post('/login','Content\UserController@login');
 Route::post('/update','Content\UserController@update');
+Route::get('/search','Content\UserController@search');
 // /**
 //  * Api
 //  */

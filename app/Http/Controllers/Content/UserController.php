@@ -89,6 +89,25 @@ class UserController extends Controller
     	return response()->json($info);
 	}
 
+	public function search(Request $request){
+		$user = new User();
+		$userInfo = $user->where('phone','=',$request->input('phone'))
+		->select('phone','created_at','updated_at','user_type','avatar_src','nick_name')->get();
+		if(empty($userInfo[0]['attributes'])){
+			$info = [
+                "status"  => 500,
+                "info"    =>"invalid parameter"
+        	];
+		}else{
+			$info = array(
+				'status' => 200,
+				'info'   => 'success',
+				'data'   => $userInfo[0]['attributes']
+			);
+		}
+		return response()->json($info);
+	}
+
 	public function login(Request $request){
 		$user = new User();
 		$userState = $user->where('phone','=',$request->input('phone'))->get();
