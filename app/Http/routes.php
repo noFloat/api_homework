@@ -25,6 +25,9 @@ Route::post('/register','Content\UserController@register');
 Route::post('/login','Content\UserController@login');
 Route::post('/update','Content\UserController@update');
 Route::get('/search','Content\UserController@search');
+
+
+Route::get('/building/search','Content\BuildingController@search');
 // /**
 //  * Api
 //  */
