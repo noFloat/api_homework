@@ -101,7 +101,12 @@ class BuildingController extends Controller
 			];
 			array_push($all_data,$array);
 		}
-		var_dump($all_data);
+		$info = [
+	            "status"  => 200,
+	            "info"    =>"success",
+	            'data'    => $all_data
+	    	];
+	    return response()->json($info);
 	}
 
 	public function energy_now(){
