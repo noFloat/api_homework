@@ -85,8 +85,23 @@ class BuildingController extends Controller
 	    return response()->json($info);
 	}
 
-	public function monitor(){
-
+	public function monitor(Request $request){
+		$total = $request->input('num');
+		$all_data =[];
+		for($i = 0;$i<$total;$i++){
+			$array = [
+				"waterflow"=>rand(0,40)/10,
+	            "host_power"=>rand(0,50)/10,
+	            "cooling_capacity"=>rand(0,20000)/10,
+	            "cop"=>rand(0,2000)/10,
+	            "tower1_power"=>rand(0,400)/10,
+	            "tower2_power"=>rand(0,550)/10,
+	            "pump1_power"=>rand(0,300)/10,
+	            "pump2_power"=>rand(0,500)/10
+			];
+			array_push($all_data,$array);
+		}
+		var_dump($all_data);
 	}
 
 	public function energy_now(){
