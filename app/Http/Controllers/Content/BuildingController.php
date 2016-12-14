@@ -64,12 +64,22 @@ class BuildingController extends Controller
 	    return response()->json($info);
 	}
 
-
+	public function searchGoal(Request $request){
+		$goal = $request->input('statistics_range');
+		if($goal == 'day'){
+			$daynum = 7;
+		}
+		$data_date = Daydata::query()->orderBy('etime','DESC')->groupBy('etime')->take(30)->get();
+		foreach ($data_date  as $key => $value) {
+			var_dump($value['attributes']);
+		}
+	}
 
 	public function energy_now(){
 		$energyData = new Energydata();
+		$random = rand (1,10);
 		$data = $energyData->join('equipment', 'equipment.id', '=', 'energydatas.eiid')
-						   ->orderBy('energydatas.etime','DESC')->take(15)->get();
+						   ->orderBy('energydatas.etime','DESC')->skip($random*14)->take(14)->get();
 		foreach ($data as $key => $value) {
 			$all_data[$key] = $value['attributes'];
 		}
