@@ -66,17 +66,20 @@ class BuildingController extends Controller
 	}
 
 	public function searchGoal(Request $request){
-		$data_date = DB::select("select truncate((g1.evalue-g2.evalue),1) as evalue from energydatas as g1 INNER JOIN
-    energydatas g2 ON g2.edId = g1.edId-13 where g1.edId>40000 order by g1.etime DESC limit 336");
+		$data_date = DB::select("select truncate((g1.evalue-g2.evalue),1) as evalue,truncate((g1.before_evalue-g2.before_evalue),1) as before_evalue from energydatas as g1 INNER JOIN
+    energydatas g2 ON g2.edId = g1.edId-13 where g1.edId>41000 order by g1.etime DESC limit 336");
 		$mid_array['energy_all'] ='';
 		$mid_array['energy_time'] = 0;
+		$mid_array['before_energy_all'] = '';
 		$data = array_fill(0,24,$mid_array);;
 		for($i=0;$i<24;$i++){
 			for($j=0;$j<14;$j++){
 				$data[$i]['energy_time'] = $i;
 				$data[$i]['energy_all'] = $data[$i]['energy_all'].(string)$data_date[$i*14+$j]->evalue.','; 
+				$data[$i]['before_energy_all'] = $data[$i]['before_energy_all'].(string)$data_date[$i*14+$j]->before_evalue.','; 
 			}
 		}
+
 		$info = [
 	            "status"  => 200,
 	            "info"    =>"success",
@@ -97,7 +100,11 @@ class BuildingController extends Controller
 	            "tower1_power"=>rand(0,400)/10,
 	            "tower2_power"=>rand(0,550)/10,
 	            "pump1_power"=>rand(0,300)/10,
-	            "pump2_power"=>rand(0,500)/10
+	            "pump2_power"=>rand(0,500)/10,
+	            'in_water'=>rand(150,200)/10,
+	            'out_water'=>rand(150,200)/10,
+	            'in_temp'=>rand(200,300)/10,
+	            'out_temp'=>rand(200,300)/10
 			];
 			array_push($all_data,$array);
 		}
