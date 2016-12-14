@@ -73,7 +73,7 @@ class BuildingController extends Controller
 		$data = array_fill(0,24,$mid_array);;
 		for($i=0;$i<24;$i++){
 			for($j=0;$j<14;$j++){
-				$data[$i]['energy_all'] = $i;
+				$data[$i]['energy_time'] = $i;
 				$data[$i]['energy_all'] = $data[$i]['energy_all'].(string)$data_date[$i*14+$j]->evalue.','; 
 			}
 		}
@@ -85,6 +85,9 @@ class BuildingController extends Controller
 	    return response()->json($info);
 	}
 
+	public function monitor(){
+
+	}
 
 	public function energy_now(){
 		$energyData = new Energydata();
