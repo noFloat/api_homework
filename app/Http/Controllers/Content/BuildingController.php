@@ -44,16 +44,17 @@ class BuildingController extends Controller
 		$buildinginfo['before_d_value'] = $before_d_value;
 
 		$tody_data = Daydata::whereIn('eiid',$equipmentId)->orderBy('etime','DESC')
-		->skip(count($equipmentInfo))->take(count($equipmentInfo))->get();
+		->skip(14)->take(14)->get();
 
 		$today_d_value = 0;
 		$today_e_value = 0;
-		foreach ($data_date as $key => $value) {
+		foreach ($tody_data as $key => $value) {
+
 			$today_d_value += $value['attributes']['dvalue'];
 			$today_e_value += $value['attributes']['evalue'];
 		}
-		$buildinginfo['today_e_value'] = $today_e_value;
-		$buildinginfo['today_d_value'] = $today_d_value;
+		$buildinginfo['today_e_value'] = $e_value-$today_e_value;
+		$buildinginfo['today_d_value'] = $d_value-$today_d_value;
 
 		$info = [
 	            "status"  => 200,
@@ -62,6 +63,8 @@ class BuildingController extends Controller
 	    	];
 	    return response()->json($info);
 	}
+
+
 
 	public function energy_now(){
 		$energyData = new Energydata();
