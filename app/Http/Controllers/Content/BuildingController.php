@@ -11,6 +11,7 @@ use App\Building;
 use App\Equipment;
 use App\Daydata;
 use App\Energydata;
+use DB;
 
 class BuildingController extends Controller
 {
@@ -65,15 +66,25 @@ class BuildingController extends Controller
 	}
 
 	public function searchGoal(Request $request){
-		$goal = $request->input('statistics_range');
-		if($goal == 'day'){
-			$daynum = 7;
+		$data_date = DB::select("select truncate((g1.evalue-g2.evalue),1) as evalue from energydatas as g1 INNER JOIN
+    energydatas g2 ON g2.edId = g1.edId-13 where g1.edId>40000 order by g1.etime DESC limit 336");
+		$mid_array['energy_all'] ='';
+		$mid_array['energy_time'] = 0;
+		$data = array_fill(0,24,$mid_array);;
+		for($i=0;$i<24;$i++){
+			for($j=0;$j<14;$j++){
+				$data[$i]['energy_all'] = $i;
+				$data[$i]['energy_all'] = $data[$i]['energy_all'].(string)$data_date[$i*14+$j]->evalue.','; 
+			}
 		}
-		$data_date = Daydata::query()->orderBy('etime','DESC')->groupBy('etime')->take(30)->get();
-		foreach ($data_date  as $key => $value) {
-			var_dump($value['attributes']);
-		}
+		$info = [
+	            "status"  => 200,
+	            "info"    =>"success",
+	            'data'    => $data
+	    	];
+	    return response()->json($info);
 	}
+
 
 	public function energy_now(){
 		$energyData = new Energydata();
