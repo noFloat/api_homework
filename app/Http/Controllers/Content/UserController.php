@@ -108,34 +108,7 @@ class UserController extends Controller
 		return response()->json($info);
 	}
 
-	private function curl_init($url,$post_data){//初始化目标网站
-        $ch = curl_init();//初始化curl
-        curl_setopt($ch, CURLOPT_URL,$url);//抓取指定网页
-        curl_setopt($ch, CURLOPT_HEADER, 0);//设置header
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);//要求结果为字符串且输出到屏幕上
-        curl_setopt($ch, CURLOPT_POST, 1);//post提交方式
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data );
-        $output = curl_exec($ch);
-
-        return $output;
-    }
-
 	public function login(Request $request){
-		$data = ' {
-"action_name": "QR_CARD", 
-"expire_seconds": 1800,
-"action_info": {
-"card": {
-"card_id": "puRCyjs_YJGOZ1apBcm_zTP_s-BE", 
-"code": "1212",
-"openid": "ouRCyjluyYmPNN5ges5JgoZ9A4J0",
-"is_unique_code": true ,
-"outer_id" : 1
-  }
- }
-}';
-		$createRequest = $this->curl_init("https://api.weixin.qq.com/card/qrcode/create?access_token=WK3wDmvbamYJNoqf2ZExbFrfLft4WpTtOwYxRU7ASINXeVusaTTrpdeVc8nJa2G8849Po2JI-RaCvgDnDjpO-HbWHgKtXH9LMXJVmh3RF9jkGKYDUyELYCSq2RC24K6MEDBbACANMKm",$data);
-		echo $createRequest;exit;
 		$user = new User();
 		$userState = $user->where('phone','=',$request->input('phone'))->get();
 		if (!password_verify ( $request->input('password') , $userState[0]->password)){
