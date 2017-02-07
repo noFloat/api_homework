@@ -17,8 +17,8 @@ class BuildingController extends Controller
 {
 	public function search(Request $request){
 
-		//$buildingInfo = Building::where('id','=','1')->get();
-		$buildingId = 1;
+		$buildingInfo = Building::where('id','=','1')->get();
+		$buildingId = $buildingInfo[0]->id;
 		
 		$equipmentInfo = Equipment::where('building_id','=',$buildingId)->get();
 		foreach ($equipmentInfo as $key => $value) {
@@ -66,11 +66,8 @@ class BuildingController extends Controller
 	}
 
 	public function searchGoal(Request $request){
-		$data_date = DB::select("select * from dayData  where edId <600");
-		var_dump($data_date);
-		exit;
-		// $data_date = DB::select("select truncate((g1.evalue-g2.evalue),1) as evalue,truncate((g1.before_evalue-g2.before_evalue),1) as before_evalue from energydata as g1 INNER JOIN
-  //   energydata g2 ON g2.edId = g1.edId-13 where g1.edId>41000 order by g1.etime DESC limit 336");
+		$data_date = DB::select("select truncate((g1.evalue-g2.evalue),1) as evalue,truncate((g1.before_evalue-g2.before_evalue),1) as before_evalue from energydatas as g1 INNER JOIN
+    energydatas g2 ON g2.edId = g1.edId-13 where g1.edId>41000 order by g1.etime DESC limit 336");
 		$mid_array['energy_all'] ='';
 		$mid_array['energy_time'] = 0;
 		$mid_array['before_energy_all'] = '';
