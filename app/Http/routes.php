@@ -26,6 +26,10 @@ Route::post('/login','Content\UserController@login');
 Route::post('/update','Content\UserController@update');
 Route::get('/search','Content\UserController@search');
 
+Route::any('/domiantionlist','Content\UserdominationController@search');
+
+Route::any('/adddomiantion','Content\UserdominationController@add');
+
 
 Route::get('/building/search','Content\BuildingController@search');
 Route::get('/building/energy_now','Content\BuildingController@energy_now');
