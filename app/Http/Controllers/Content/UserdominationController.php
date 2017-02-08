@@ -38,11 +38,22 @@ class UserdominationController extends Controller
 				"building_id"=>$request->input('building_id'),
 				"equipment_id" => $request->input('equipment_id')
 			);
-			$userdomination->insertGetId($content);
-			$info = [
-	                "status"  => 200,
-	                "info"    =>"success"
-	            ];
+			$goal = $userdomination->where('user_id','=',$request->input('user_id'))
+			->where('equipment_id','=',$request->input('equipment_id'))
+			->where('building_id','=',$request->input('building_id'))->first();
+			if(!empty($goal)){
+				$info = [
+	                "status"  => 502,
+	                "info"    =>"exist!!!"
+            	];
+			}else{
+				$userdomination->insertGetId($content);
+				$info = [
+		                "status"  => 200,
+		                "info"    =>"success"
+		            ];
+			}
+			
 		}
 		return response()->json($info);
 	}
