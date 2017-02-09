@@ -30,6 +30,8 @@ Route::any('/domiantionlist','Content\UserdominationController@search');
 
 Route::any('/adddomiantion','Content\UserdominationController@add');
 
+Route::any('/repairlst/create','Content\RepairlistController@insert');
+
 
 Route::get('/building/search','Content\BuildingController@search');
 Route::get('/building/energy_now','Content\BuildingController@energy_now');
