@@ -119,7 +119,7 @@ class BuildingController extends Controller
 	public function energy_now(){
 		$energyData = new Energydata();
 		$random = rand (1,10);
-		$data = $energyData->join('equipment', 'equipment.id', '=', 'energydatas.eiid')
+		$data = $energyData->join('equipments', 'equipments.id', '=', 'energydatas.eiid')
 						   ->orderBy('energydatas.etime','DESC')->skip($random*14)->take(14)->get();
 		foreach ($data as $key => $value) {
 			$all_data[$key] = $value['attributes'];
