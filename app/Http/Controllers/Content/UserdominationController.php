@@ -16,10 +16,13 @@ class UserdominationController extends Controller
 		$userdomination = new Userdomination();
 		$user_id = $request->input('user_id');
 		$list = $userdomination->where('user_id',$user_id)->join('buildings','userdominations.building_id','=','buildings.id')->join('equipments','userdominations.equipment_id','=','equipments.id')->get();
+		foreach ($list as $key => $value) {
+			$goal[$key] = $value['attributes'];
+		}
 		$info = array(
 				'status' => 200,
 				'info'   => 'success',
-				'data'   => $list[0]['attributes']
+				'data'   => $goal
 			);
 		return response()->json($info);
 	}
