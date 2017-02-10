@@ -52,6 +52,27 @@ class RepairlistController extends Controller
 	    return response()->json($info);
     }
 
+    public function confirm(Request $request){
+    	$repairlist = new Repairlist();
+    	if(empty($request->input('repairlist_id'))){
+    		$info = [
+	                "status"  => 500,
+	                "info"    =>"invalid parameter"
+            	];
+    	}else{
+    		$goal = $repairlist->where('id','=',$request->input('repairlist_id'))->update(
+    			[
+    				'status'=>2
+    			]
+    		);
+	    	$info = [
+		                "status"  => 200,
+		                "info"    =>"success"
+		            ];
+    	}
+	    return response()->json($info);
+    }
+
     public function evaluate(Request $request){
     	$goal = new Repairlist();
     	if(empty($request->input('rank_star'))||empty($request->input('remark_content'))){

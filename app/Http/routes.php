@@ -41,6 +41,8 @@ Route::any('/repairlist/evaluate','Content\RepairlistController@evaluate');
 
 Route::any('/repairlist/grab','Content\RepairlistController@grab');
 
+Route::any('/repairlist/confirm','Content\RepairlistController@confirm');
+
 
 Route::get('/building/search','Content\BuildingController@search');
 Route::get('/building/energy_now','Content\BuildingController@energy_now');
