@@ -26,6 +26,11 @@ Route::post('/login','Content\UserController@login');
 Route::post('/update','Content\UserController@update');
 Route::get('/search','Content\UserController@search');
 
+Route::post('/repairer/register','Content\RepairerController@register');
+Route::post('/repairer/login','Content\RepairerController@login');
+Route::post('/repairer/update','Content\RepairerController@update');
+Route::get('/repairer/search','Content\RepairerController@search');
+
 Route::any('/domiantionlist','Content\UserdominationController@search');
 
 Route::any('/adddomiantion','Content\UserdominationController@add');
