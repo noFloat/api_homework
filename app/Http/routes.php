@@ -32,7 +32,6 @@ Route::any('/adddomiantion','Content\UserdominationController@add');
 
 Route::any('/repairlst/create','Content\RepairlistController@insert');
 
-
 Route::any('/repairlst/evaluate','Content\RepairlistController@evaluate');
 
 

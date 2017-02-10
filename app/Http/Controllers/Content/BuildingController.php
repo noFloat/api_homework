@@ -15,6 +15,11 @@ use DB;
 
 class BuildingController extends Controller
 {
+
+	public function searchEquipment(Request $request){
+		
+	}
+
 	public function search(Request $request){
 
 		$buildingInfo = Building::where('id','=','1')->get();
