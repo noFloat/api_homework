@@ -116,4 +116,25 @@ class RepairlistController extends Controller
 	    return response()->json($info);
     }
 
+    public function userSearch(Request $request){
+    	$goal = new Repairlist();
+    	if(empty($request->input('page'))||empty($request->input('limit'))||empty($request->input('user_id'))){
+    		$info = [
+	                "status"  => 500,
+	                "info"    =>"invalid parameter"
+            	];
+    	}else{
+    		$take = $request->input('limit');
+    		$skip = ($request->input('page')-1)*$take;
+	    	$data=$goal->where('user_id','=',$request->user_id)->orderBy('created_at','DESC')->leftJoin('equipments','repairlists.equipment_id','=','equipments.id')->leftJoin(
+	    		'repairers','repairlists.repairer_id','=','repairers.id')->skip($skip)->take($take)->select('repairlists.id as repairlist_id','repairlists.equipment_id','repairlists.created_at','repairlists.status','equipments.equipment_name','equipments.equipment_type','repairers.phone')->get();
+	    	$info = [
+		                "status"  => 200,
+		                "info"    =>"success",
+		                'data'   => $data
+		            ];
+    	}
+	    return response()->json($info);
+    }
+
 }
